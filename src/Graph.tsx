@@ -46,7 +46,6 @@ class Graph extends Component<IProps, {}> {
     }
     if (this.table) {
       // Load the `table` in the `<perspective-viewer>` DOM reference.
-
       elem.load(this.table);
       // visualise the data as a continuous line graph
       elem.setAttribute('view', 'y_line'); 
@@ -58,11 +57,12 @@ class Graph extends Component<IProps, {}> {
       elem.setAttribute('columns', '["top_ask_price"]');
       // data point is unique if it has a unique stock name and timestamp
       // otherwise, average out the top_big_prices and top_ask_prices
-      elem.setAttribute('aggregates', `
-        '{"stock":"distinct count",
-        "top_ask_price":"avg",
-        "top_bid_price":"avg",
-        "timestamp":"distnct count"}`);
+      elem.setAttribute('aggregates', JSON.stringify({
+        stock: 'distinct count',
+        top_ask_price: 'avg',
+        top_bid_price: 'avg',
+        timestamp: 'distinct count',
+      }));
     }
   }
 
